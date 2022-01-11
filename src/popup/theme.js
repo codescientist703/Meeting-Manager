@@ -1,8 +1,8 @@
 export default {
 	colors: {
-		primary: 'red',
-		secondary: 'blue',
-		bg: '#DEF0FF',
-		cardBg: 'white',
+		primary: '#004A7C',
+		secondary: '#005691',
+		bg: '#FAFAFA',
+		cardBg: '#E8F1F5',
 	},
 };

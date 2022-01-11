@@ -7,7 +7,7 @@
 		justify="center"
 	>
 		<c-flex direction="column" align="center">
-			<c-icon name="ghost" size="50px" mb="4" />
+			<c-icon name="ghost" size="50px" mb="4" color="primary" />
 			<c-text fontSize="lg">No meeting was found !</c-text>
 		</c-flex>
 	</c-flex>

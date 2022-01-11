@@ -1,10 +1,10 @@
 <template>
 	<c-box p="3" bg="bg" height="500px" width="350px" overflow-y="auto">
 		<c-heading size="md" mb="3">
-			<c-icon name="users" size="22px" mr="3" />
+			<c-icon name="users" size="22px" mr="3" color="primary" />
 			{{ defaultText }}
 		</c-heading>
-		<c-divider mx="-3" border-color="primary" />
+		<c-divider mx="-3" border-color="secondary" />
 		<NotFound :isEmpty="isEmpty" />
 		<MeetingCard
 			v-for="(value, key) in meetingTabs"

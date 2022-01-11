@@ -4,10 +4,10 @@
 		rounded="lg"
 		overflow="hidden"
 		p="3"
-		my="2"
+		my="3"
 		bg="cardBg"
 		border="1px"
-		borderColor="primary"
+		borderColor="secondary"
 	>
 		<c-flex mb="10">
 			<c-editable
@@ -20,22 +20,26 @@
 				<c-editable-preview />
 				<c-editable-input />
 			</c-editable>
-			<c-flex align="center">
+			<c-flex align="center" color="primary">
 				<c-tooltip label="Go to this meeting" placement="left">
 					<c-box @click="$emit('switch-tab', id)" cursor="pointer" mr="3">
-						<c-icon name="share-square" size="20px" />
+						<c-icon name="share-square" size="18px" />
 					</c-box>
 				</c-tooltip>
 				<c-tooltip label="Enable shortcut" placement="left">
 					<c-checkbox
 						v-model="meetingDetails.isShortcutEnabled"
 						@change="$emit('toggle-shortcut', id)"
+						bg="white"
+						border="0.1px"
+						borderRadius="3px"
+						borderColor="secondary"
 					/>
 				</c-tooltip>
 			</c-flex>
 		</c-flex>
 		<c-flex justify="flex-end" align="center">
-			<c-grid template-columns="repeat(3, 1fr)" gap="3">
+			<c-grid template-columns="repeat(3, 1fr)" gap="3" color="primary">
 				<c-box @click="$emit('toggle-mute', id, 'mic')">
 					<c-icon
 						:name="
@@ -102,3 +106,8 @@ export default {
 	},
 };
 </script>
+<style scoped>
+input:focus {
+	box-shadow: 0 0 0 1px var(--colors-secondary);
+}
+</style>
