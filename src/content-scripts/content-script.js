@@ -58,12 +58,10 @@ async function updateMeeting(isExtensionUpdate) {
 
 async function waitForMuteButton() {
 	try {
-		console.log('aila me change huya');
 		const micEl = await waitUntilElementExists(meetingDetails['mic'].selector);
 		const cameraEl = await waitUntilElementExists(
 			meetingDetails['camera'].selector
 		);
-		console.log('start huya just');
 		const micDetails = getElementDetails(micEl);
 		const cameraDetails = getElementDetails(cameraEl);
 
@@ -76,7 +74,6 @@ async function waitForMuteButton() {
 		watchIsMuted('camera', cameraEl);
 		updateMeeting(true);
 	} catch (error) {
-		console.log(error);
 		browser.runtime.sendMessage({ type: 'disconnected' });
 	}
 }
@@ -139,8 +136,8 @@ browser.runtime.onMessage.addListener(function (request) {
 		if (request.action === 'mic' || request.action === 'camera') {
 			toggleMuted(request.action);
 		}
-		const shoudUpdate = request.shouldUpdate === true;
-		updateMeeting(shoudUpdate);
+		const shouldUpdate = request.shouldUpdate === true;
+		updateMeeting(shouldUpdate);
 	}
 });
 
