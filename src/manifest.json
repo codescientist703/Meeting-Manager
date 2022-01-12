@@ -1,8 +1,7 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "homepage_url": "http://localhost:8080/",
-  "description": "A Vue Browser Extension",
+  "description": "Easily Manage all your google meet conferences from any window or tab. Supports muting/unmuting of microphone, camera and sound.",
   "default_locale": "en",
   "permissions": ["<all_urls>", "*://*/*", "storage", "notifications", "tabs"],
   "icons": {
