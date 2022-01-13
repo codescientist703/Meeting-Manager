@@ -35,6 +35,7 @@ browser.commands.onCommand.addListener(async function (command) {
 		action: command,
 		shouldUpdate: true,
 	});
+	await browser.notifications.clear('command');
 	await browser.notifications.create('command', {
 		iconUrl: 'icons/48.png',
 		title: 'Meeting Manager',
