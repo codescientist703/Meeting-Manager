@@ -29,15 +29,15 @@ browser.commands.onCommand.addListener(async function (command) {
 		});
 	}
 
-	browser.tabs.sendMessage(parseInt(tabId), {
+	await browser.tabs.sendMessage(parseInt(tabId), {
 		type: 'update',
 		payload: meetingTabs[tabId],
 		action: command,
 		shouldUpdate: true,
 	});
-	browser.notifications.create('command', {
+	await browser.notifications.create('command', {
 		iconUrl: 'icons/48.png',
-		title: 'Command invoked!',
+		title: 'Meeting Manager',
 		type: 'basic',
 		message: `The ${command} of meeting "${meetingTabs[tabId].name}" is now ${statusText}.`,
 	});
