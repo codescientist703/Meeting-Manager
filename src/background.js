@@ -11,7 +11,7 @@ browser.tabs.onRemoved.addListener(function (tabId) {
 });
 
 browser.commands.onCommand.addListener(async function (command) {
-	const result = await browser.storage.local.get('meetingTabs');
+	const result = await chrome.storage.local.get(['meetingTabs']);
 	const meetingTabs = result.meetingTabs;
 	const tabId = Object.keys(meetingTabs).find(
 		(key) => meetingTabs[key].isShortcutEnabled === true
@@ -20,6 +20,10 @@ browser.commands.onCommand.addListener(async function (command) {
 	if (!tabId) {
 		return;
 	}
+	if (meetingTabs[tabId][command].isDisabled) {
+		return;
+	}
+
 	meetingTabs[tabId][command].isMuted = !meetingTabs[tabId][command].isMuted;
 	const statusText = meetingTabs[tabId][command].isMuted ? 'muted' : 'unmuted';
 
@@ -35,6 +39,7 @@ browser.commands.onCommand.addListener(async function (command) {
 		action: command,
 		shouldUpdate: true,
 	});
+
 	await browser.notifications.clear('command');
 	await browser.notifications.create('command', {
 		iconUrl: 'icons/48.png',
@@ -45,13 +50,13 @@ browser.commands.onCommand.addListener(async function (command) {
 });
 
 async function removeTab(tabId) {
-	const result = await browser.storage.local.get('meetingTabs');
+	const result = await chrome.storage.local.get(['meetingTabs']);
 	const allTabs = result.meetingTabs;
 	tabId = parseInt(tabId);
 	if (tabId in allTabs) {
 		delete allTabs[tabId];
-		await browser.storage.local.set({ meetingTabs: allTabs });
-		await browser.extension.sendMessage({
+		await chrome.storage.local.set({ meetingTabs: allTabs });
+		await browser.runtime.sendMessage({
 			type: 'update',
 			payload: allTabs,
 		});

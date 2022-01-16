@@ -100,10 +100,10 @@ export default {
 				action: 'shortcut',
 			});
 
-			await browser.storage.local.set({ meetingTabs: this.meetingTabs });
+			await chrome.storage.local.set({ meetingTabs: this.meetingTabs });
 		},
 		async fetchExistingTabs() {
-			const result = await browser.storage.local.get('meetingTabs');
+			const result = await chrome.storage.local.get(['meetingTabs']);
 			this.meetingTabs = result.meetingTabs || {};
 		},
 	},

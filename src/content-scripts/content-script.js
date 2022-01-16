@@ -43,17 +43,16 @@ const waitUntilElementExists = (DOMSelector, MAX_TIME = 5000) => {
 };
 
 async function updateMeeting(isExtensionUpdate) {
-	const result = await browser.storage.local.get('meetingTabs');
+	const result = await chrome.storage.local.get(['meetingTabs']);
 	const newMeetingTabs = result.meetingTabs || {};
 	newMeetingTabs[tabId] = meetingDetails;
+	await chrome.storage.local.set({ meetingTabs: newMeetingTabs });
 	if (isExtensionUpdate) {
-		await browser.extension.sendMessage({
+		browser.runtime.sendMessage({
 			type: 'update',
 			payload: newMeetingTabs,
 		});
 	}
-
-	await browser.storage.local.set({ meetingTabs: newMeetingTabs });
 }
 
 async function waitForMuteButton() {
