@@ -5,12 +5,12 @@ let meetingDetails = {
 	isShortcutEnabled: false,
 	mic: {
 		isMuted: false,
-		selector: '[role="button"][aria-label*="microphone"][data-is-muted]',
+		selector: '[role="button"][aria-label*="microphone" i][data-is-muted]',
 		isDisabled: false,
 	},
 	camera: {
 		isMuted: false,
-		selector: '[role="button"][aria-label*="camera"][data-is-muted]',
+		selector: '[role="button"][aria-label*="camera" i][data-is-muted]',
 		isDisabled: false,
 	},
 	sound: {
@@ -80,8 +80,12 @@ async function waitForMuteButton() {
 function getElementDetails(element) {
 	const result = {
 		isMuted: element.getAttribute('data-is-muted') === 'true',
-		isDisabled: element.disabled === true,
+		isDisabled: element.getAttribute('aria-label').includes('problem'),
 	};
+
+	if (result.isDisabled) {
+		result.isMuted = true;
+	}
 
 	return result;
 }
@@ -106,7 +110,7 @@ function watchIsMuted(action, el) {
 	});
 	mutationObservers[action].observe(el, {
 		attributes: true,
-		attributeFilter: ['data-is-muted', 'disabled'],
+		attributeFilter: ['data-is-muted', 'aria-label'],
 	});
 }
 
